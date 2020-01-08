@@ -1,5 +1,5 @@
-import urllib.parse
-
+from urllib.request import quote, unquote
+from pyiiif.constants import valid_contexts
 
 def escape_identifier(identifier):
     """
@@ -9,7 +9,7 @@ def escape_identifier(identifier):
     :rtype: str
     :returns: The identifier, escaped
     """
-    return urllib.parse.urlquote(identifier, safe='')
+    return quote(identifier, safe='')
 
 
 def unescape_identifier(identifier):
@@ -20,4 +20,19 @@ def unescape_identifier(identifier):
     :rtype: str
     :returns: The identifier, unescaped
     """
-    return urllib.parse.urlunquote(identifier)
+    return unquote(identifier)
+
+def convert_context_url_into_lookup(a_url):
+    """tries to look up a IIIF context url in the key value of the valid_contexts dict
+
+    If cannot find the url will return None else will return the right key for defining 
+    a context value on a record
+
+    :rtype None or str
+    """
+    pot_context = a_url
+    for key, value in valid_contexts.items():
+        if value == pot_context:
+            return key
+    return None
+

@@ -9,7 +9,7 @@ def readme():
 setup(
     name="pyiiif",
     description="Library code for working with the IIIF specifications",
-    version="0.0.1",
+    version="0.1.0",
     long_description=readme(),
     author="Brian Balsamo",
     author_email="brian@brianbalsamo.com",
@@ -18,7 +18,7 @@ setup(
         ]
     ),
     include_package_data=True,
-    url='https://github.com/bnbalsamo/pyiiif',
+    url='https://github.com/uchicago-library/pyiiif',
     install_requires=[
         'requests'
     ],

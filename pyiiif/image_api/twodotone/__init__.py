@@ -1,4 +1,6 @@
-import urllib.parse
+from urllib.parse import urlparse
+from urllib.parse import quote
+from urllib.parse import urlunparse
 
 from .utils import parse_image_api_url_scheme_url_component, \
     parse_image_api_url_server_url_component, \
@@ -27,8 +29,8 @@ class ImageApiUrl:
         :param str url: The URL to parse
         :rtype: :class:`ImageApiUrl`
         """
-        url = urllib.parse.urlunparse(
-            urllib.parse.urlparse(url)[0:3] + ("",)*3
+        url = urlunparse(
+            urlparse(url)[0:3] + ("",)*3
         )
         return cls(
             parse_image_api_url_scheme_url_component(url),
@@ -51,8 +53,8 @@ class ImageApiUrl:
         :param str url: The URL to parse
         :rtype: :class:`ImageApiUrl`
         """
-        url = urllib.parse.urlunparse(
-            urllib.parse.urlparse(url)[0:3] + ("",)*3
+        url = urlunparse(
+            urlparse(url)[0:3] + ("",)*3
         )
         return cls(
             parse_image_api_url_scheme_url_component(url),
@@ -71,8 +73,8 @@ class ImageApiUrl:
         :param str url: The URL to parse
         :rtype: :class:`ImageApiUrl`
         """
-        url = urllib.parse.urlunparse(
-            urllib.parse.urlparse(url)[0:3] + ("",)*3
+        url = urlunparse(
+            urlparse(url)[0:3] + ("",)*3
         )
         if url.endswith("info.json"):
             return cls.from_info_url(url)
@@ -140,6 +142,16 @@ class ImageApiUrl:
         return self.scheme+"://" + self.server + self.prefix + "/" + \
             self.identifier + "/info.json"
 
+    def to_base_url(self):
+        """
+        Return a representation of the base url represented
+        by the :class:`ImageApiUrl`
+
+        :rtype: str
+        """
+        return self.scheme+"://" + self.server + self.prefix + "/" + \
+            self.identifier
+
     def validate(self):
         """
         Validates the URL.
@@ -193,7 +205,7 @@ class ImageApiUrl:
 
     def set_identifier(self, x, quote=True):
         if quote:
-            x = urllib.parse.quote(x, safe='')
+            x = quote(x, safe='')
         old = self.identifier
         try:
             self._identifier = x

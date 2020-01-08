@@ -1,7 +1,8 @@
 # Byte-compiled / optimized / DLL files
-__pycache__/
+*__pycache__*
 *.py[cod]
 *$py.class
+*cache*
 
 # C extensions
 *.so
@@ -81,9 +82,14 @@ celerybeat-schedule
 # virtualenv
 venv/
 ENV/
+activate.bat
+deactivate.bat
 
 # Spyder project settings
 .spyderproject
 
 # Rope project settings
 .ropeproject
+
+# .vscode settings
+.vscode/*
